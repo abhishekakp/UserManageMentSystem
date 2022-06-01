@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/0aa8d2ed81.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://rawgit.com/angular-ui/ui-select/v0.14.3/dist/select.js"></script>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
+<script src="node_modules\ng-csv\build\ng-csv.min.js"></script>
+<script src="index.js"></script>
+<!-- <script src="ng-csv.js"></script> -->
+
+
+<link rel="stylesheet" href="select.css">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body ng-app="tableApp" ng-controller="tableController">
+        
+     <div class="topNav">
+            <span class="people"><i class="fa-solid fa-users"></i></span>
+            <span>User Management System</span>
+            <span class="add_user" data-toggle="modal" ng-click="showPopup(-1)"><i class="fa-solid fa-user-plus"  ></i>Add User</span>
+            
+        </div>
+        <div class="fullBodyExceptTable" >
+        <div class="main_table" > 
+            
+            <div class="ta_head" id="head">
+            <h5>User Data List</h5>
+            </div>
+            <input type="text" ng-model="searchTable" class="searchBar" placeholder="Search" ng-change="changeRows((data| filter:searchTable).length)">
+            <div class="displayRow" >View <select   id="displayRecords" ng-model="displayRows" ng-options="item for item in numbers">
+            </select> at a time</div>
+            <button class="btn btn-default"
+              ng-csv="data"  filename="test" field-separator="," decimal-separator="."
+              >Export</button>
+            <table class="main_data" id="myTable" >
+                    <thead>
+                 <tr >
+                    <th >Name&nbsp<button  ng-click="sort('name'); changeNameIcon=!changeNameIcon" ><i id="sortButtonName" class="fa-solid fa-arrow-down-a-z" ng-if="changeNameIcon"></i>
+                        <i id="sortButtonName" class="fa-solid fa-arrow-up-a-z" ng-if="!changeNameIcon"></i>
+                    </button></th>
+                    <th>Email&nbsp<button  ng-click="sort('email');changeEmailIcon=!changeEmailIcon" ><i id="sortButtonEmail" class="fa-solid fa-arrow-down-a-z" id ="sortByEmail" ng-if="changeEmailIcon"></i>
+                        <i id="sortButtonEmail" class="fa-solid fa-arrow-up-a-z" id ="sortByEmail" ng-if="!changeEmailIcon"></i></button></th>
+                    <th>Phone</th>
+                    <th>Gender</th>
+                    <th>Age&nbsp<button ng-click="sort('age');changeAgeIcon=!changeAgeIcon" ><i id="sortButtonAge" class="fa-solid fa-arrow-down-a-z" id ="sortByAge" ng-if="changeAgeIcon"></i>
+                        <i id="sortButtonAge" class="fa-solid fa-arrow-up-a-z" id ="sortByAge" ng-if="!changeAgeIcon"></i></button></th>
+                    <th>Edit/Delete</th>
+                </tr>
+                </thead>
+                <tbody>  
+                    
+                    <tr  ng-repeat="x in data|orderBy:sortKey:reverse|filter:searchTable|limitTo:displayRows:begin">
+                        
+                        <td>{{x.name}}</td>
+                        <td>{{x.email}}</td>
+                        <td>{{x.phone}}</td>
+                        <td ng-if="x.gender==='male'"><i class="fa-solid fa-person"></i></td>
+                        <td ng-if="x.gender==='female'"><i class="fa-solid fa-person-dress"></i></td>
+                        <td>{{x.age}}</td>
+                         <td><i class="fa-solid fa-pen-to-square" ng-click="showPopup($index)"> &nbsp;</i>&nbsp&nbsp<i class="fa-solid fa-trash-can"  ng-click="confirmationDialog($index)" ></i></td> 
+                    </tr>
+                    <!-- ng-click="removeItem($index)" -->
+                </tbody>
+                
+            </table>
+            <div id="pageNavPosition" style="padding-top: 20px" align="right">
+            <ul uib-pagination 
+            items-per-page="displayRows"
+            ng-model="curPage"
+            total-items="rows"
+             data-current-page="curPage"
+             data-max-size="maxSize" 
+             data-boundary-links="true">
+            </ul>
+            </div>
+        </div>
+       
+        
+        <div class="footer">
+            <hr>
+            <span>No.of Active users:{{rows}}</span>
+            <img src="patient bond.jfif"/>
+        </div>
+        </div>
+            <script src="index.js"></script>
+</body>
+ </html> 

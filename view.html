@@ -1,0 +1,111 @@
+<style>
+    body {
+      padding: 15px;
+    }
+
+    .select2 > .select2-choice.ui-select-match {
+      /* Because of the inclusion of Bootstrap */
+      height: 29px;
+    }
+
+    .selectize-control > .selectize-dropdown {
+      top: 36px;
+    }
+  </style>
+<div class="modal-header">
+    <link rel="stylesheet" href="index.css">
+    
+    
+    <h3 class="modal-title" id="modal-title">New User Details</h3>
+    <i class="fa-solid fa-xmark" ng-click="cancelModal()"></i>
+</div>
+<form name="myForm" >
+
+        <div class="modal-body" id="modal-body">
+   
+                <div class="form-group row"> 
+              
+                        <div class="col-md-6">
+                                <label for="name" class=" control-label">Name(required)</label> 
+                                <input type="text"  name="name" ng-model="name" value="" class="form-control" placeholder="First name" required/> 
+                         </div> 
+         
+           
+                        <div class="col-md-6">
+                            <div class="form-group">
+                            <label for="email" class=" control-label" >Email</label> 
+                            <input type="email"  name="email" ng-model="email" value="" class="form-control" placeholder="Email"/> 
+                            </div> 
+                        </div> 
+          
+                        <div class="col-md-6">
+                            <div class="form-group"> 
+                                <label for="phoneNo" class=" control-label">Phone</label> 
+                                <input type="tel"  ng-model="phoneNo" value="" class="form-control"  placeholder="Phone"/> 
+                            </div> 
+                        </div> 
+ 
+                        <div class="col-md-6">
+                            <div class="form-group"> 
+                            <label for="dob" class=" control-label">DOB</label> 
+                            <p class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup='MM/dd/yyyy' ng-model="dob" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            </p>
+                                <!-- <input type="date"  ng-model="dob" value="" class="form-control" placeholder="" />  -->
+                            </div> 
+                        </div>
+                         
+                            <div class="col-md-12">
+                                <div class="form-group ">
+                            <label for="address" class="control-label">Address</label> 
+                            <input type="text"  ng-model="address" value="" class="form-control" placeholder="Address" /> 
+                            </div> 
+                        </div>
+                        
+        
+                        
+                        
+            <div>
+                            <p for="language" class="col-md-4 ">Languages:</p> 
+                            <div class="col-md-8"> 
+                            <!-- <input type="text"  ng-bind="languages" value="" class="form-control" > -->
+                            <!-- <select  class="form-control" id="languages" ng-model="language" ng-options="item for item in languages"></select> -->
+                            <ui-select multiple ng-model="multipleDemo.colors" theme="select2" ng-disabled="disabled" style="min-width: 100%;">
+                                <ui-select-match placeholder="">{{$item}}</ui-select-match>
+                                <ui-select-choices repeat="color in availableColors">
+                                 {{color}}
+                                  
+                                </ui-select-choices>
+                              </ui-select>
+                            </div> 
+                        </div>
+                        
+
+                        <div class=" col-md-3"> 
+                            <p for="gender">Gender:</p> 
+                        </div>
+                        <div class=" col-md-9">     
+                            <input type="radio" id="male" ng-model="male" value="Male"   name="gender"/> 
+                            <label for="male" >Male</label><br>
+                            <input type="radio" id="female" ng-model="female" value="Female"   name="gender"/> 
+                            <label for="Female" >Female</label>
+                        </div>
+                </div> 
+        </div>
+        </div>
+   <div class="modal-footer">
+       
+    <input type="submit" class="btn btn-info" ng-click="addData()"
+    ng-disabled=" myForm.name.$invalid ||  
+    myForm.email.$invalid">
+            <!-- <button type="submit" >Save</button> -->
+        
+    </div>
+    </form>
+    <!--<button class="btn btn-primary" type="button" ng-click="ok()">Ok</button>-->
+    
+   
+  
